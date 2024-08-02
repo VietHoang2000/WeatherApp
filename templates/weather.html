@@ -13,7 +13,7 @@
       <div class="card mt-3">
         <div class="card-body">
           <h5 class="card-title">City: {{ weather['name'] }}</h5>
-          <p class="card-text">Temperature: {{ weather['main']['temp'] }}K</p>
+          <p class="card-text">Temperature: {{ '%.2f'|format(weather['main']['temp']) }}°C</p>
           <p class="card-text">Weather: {{ weather['weather'][0]['description'] }}</p>
           <a href="/" class="btn btn-primary">Back</a>
         </div>

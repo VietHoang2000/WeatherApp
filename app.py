@@ -16,5 +16,8 @@ def weather():
     weather_data = response.json()
     return render_template('weather.html', weather=weather_data)
 
+def kelvin_to_celsius(kelvin):
+    return kelvin - 273.15
+
 if __name__ == '__main__':
     app.run(debug=True)
