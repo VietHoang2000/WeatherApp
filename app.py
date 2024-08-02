@@ -11,21 +11,19 @@ def home():
 def weather():
     city = request.form['city']
     api_key = 'b040117e1a49b4572f8a7a23c15c5a5f'
-    weather_url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric'
-    response = requests.get(weather_url)
-    weather_data = response.json()
+    base_url = 'http://api.openweathermap.org/data/2.5/weather?q={}&appid={}&units=metric'
+    response = requests.get(base_url.format(city, api_key)).json()
 
-    if weather_data.get('cod') != '404':
-        weather = {
-            'city': city,
-            'temperature': weather_data['main']['temp'],
-            'description': weather_data['weather'][0]['description'],
-            'icon': weather_data['weather'][0]['icon'],
+    if response['cod'] == 200:
+        weather_data = {
+            'city': response['name'],
+            'temperature': response['main']['temp'],
+            'description': response['weather'][0]['description'],
+            'icon': response['weather'][0]['icon'],
         }
+        return render_template('index.html', weather=weather_data)
     else:
-        weather = None
-
-    return render_template('index.html', weather=weather)
+        return render_template('index.html', error='City not found')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000)
+    app.run(debug=True)
