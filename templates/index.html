@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
     <title>Weather Forecast</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+  </head>
+  <body>
     <h1>Weather Forecast</h1>
-    <form method="POST" action="/weather">
-        <input type="text" name="city" placeholder="Enter city">
-        <button type="submit">Get Weather</button>
+    <form action="/weather" method="post">
+      <input type="text" name="city" placeholder="Enter city name">
+      <input type="submit" value="Get Weather">
     </form>
-    {% if weather %}
-        <h2>{{ weather.city }}</h2>
-        <p>{{ weather.temperature }}°C</p>
-        <p>{{ weather.description }}</p>
-        <img src="http://openweathermap.org/img/wn/{{ weather.icon }}.png" alt="Weather icon">
-    {% elif error %}
-        <p>{{ error }}</p>
-    {% endif %}
-</body>
+  </body>
 </html>
