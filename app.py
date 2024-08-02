@@ -14,6 +14,7 @@ def weather():
     url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}'
     response = requests.get(url)
     weather_data = response.json()
+    weather_data['main']['temp'] = kelvin_to_celsius(weather_data['main']['temp'])
     return render_template('weather.html', weather=weather_data)
 
 def kelvin_to_celsius(kelvin):
