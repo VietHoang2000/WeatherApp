@@ -7,6 +7,9 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
+def kelvin_to_celsius(kelvin):
+    return kelvin - 273.15
+
 @app.route('/weather', methods=['POST'])
 def weather():
     city = request.form.get('city')
@@ -16,9 +19,6 @@ def weather():
     weather_data = response.json()
     weather_data['main']['temp'] = kelvin_to_celsius(weather_data['main']['temp'])
     return render_template('weather.html', weather=weather_data)
-
-def kelvin_to_celsius(kelvin):
-    return kelvin - 273.15
 
 if __name__ == '__main__':
     app.run(debug=True)
